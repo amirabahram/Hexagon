@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
+
 //using static System.IO.Enumeration.FileSystemEnumerable<TResult>;
 
 public class Grid : MonoBehaviour
@@ -11,27 +13,30 @@ public class Grid : MonoBehaviour
     //public GameObject hexPrefabb;
     //Camera maincamera = GameObject.FindWithTag("Camera").GetComponent<Camera>();
     //Canvas mainCanvas = GameObject.FindWithTag("Canvas").GetComponent<Canvas>();
+
     public int gridWidth = 10;
     public int gridLength = 10;
     float hexWidth = 1.7f;
     float hexHieght = 2.0f;
     public float gap = 0.0f;
-    Dictionary<Vector2, Tile> _tiles = new Dictionary<Vector2, Tile>();
+    public Dictionary<Vector2, Tile> _tiles = new Dictionary<Vector2, Tile>();
     [SerializeField] private Transform cam;
     [SerializeField] private Tile hexPrefabb;
 
+    
     Vector3 startPos;
     void SetWidthandHieght()
     {
         hexHieght = transform.localScale.y;
         hexWidth = transform.localScale.x;
     }
-    void Start()
+    void Awake()
     {
         SetWidthandHieght();
         AddGap();
         calcStartPos();
         CreateGrid();
+       
     }
     void AddGap()
     {
@@ -80,14 +85,15 @@ public class Grid : MonoBehaviour
                 float yy =transform.position.y - y * hexHieght+offset;
                 Tile hex = Instantiate(hexPrefabb,new Vector3(xx,yy,0),Quaternion.identity) as Tile;
                 //Transform hex = Instantiate(hexPrefab) as Transform;
-                Vector2 gridPos = new Vector2(x, y);
+                //Vector2 gridPos = new Vector2(x, y);
                 //hex.position = calcWorldPos(gridPos);
                 //hex.parent = this.transform;
                 hex.name = "Hexagon" + x + "|" + y;
-
+                
                 isOffset = (x % 2 == 0 && y % 2 != 0);
                 hex.Init(isOffset);
                 _tiles[new Vector2(x, y)] = hex;
+            
 
             }
         }

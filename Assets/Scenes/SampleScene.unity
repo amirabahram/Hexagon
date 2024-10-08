@@ -652,6 +652,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1197608968 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3331376864271737960, guid: f2c49af0b981f4d49b9a815bad9a5cc3, type: 3}
+  m_PrefabInstance: {fileID: 694282202790941700}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1491926947
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,11 +805,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4721978036168171688, guid: b6aab4ddc7a72754085c61e3bbdce99b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.06
       objectReference: {fileID: 0}
     - target: {fileID: 4721978036168171688, guid: b6aab4ddc7a72754085c61e3bbdce99b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 4721978036168171688, guid: b6aab4ddc7a72754085c61e3bbdce99b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -838,6 +843,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6348620345203783269, guid: b6aab4ddc7a72754085c61e3bbdce99b, type: 3}
+      propertyPath: gridObj
+      value: 
+      objectReference: {fileID: 1197608968}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
