@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private bool moveDone = true;
     public int cubeNumber =-1;
     private bool corutineStart = true;
+    private bool playerIsMoving = false;
     public bool MoveDone
     {
         get { return moveDone; }
@@ -55,7 +56,7 @@ public class PlayerController : MonoBehaviour
         if (tiles.Count > 0 && cubeButton.CubeWait)
         {
             float playerAndFirstTileDistance = Vector3.Distance(tiles[0].transform.position,transform.position);
-            if (playerAndFirstTileDistance <3) ///// This Should Be Corrected................
+            if (playerAndFirstTileDistance <2 && !playerIsMoving) ///// This Should Be Corrected................
             {
                 corutineStart = true;
                 StartCoroutine(MoveToTiles(tiles));
@@ -88,6 +89,7 @@ public class PlayerController : MonoBehaviour
             // Move the player to the tile's position
             if (tiles.ElementAtOrDefault(i) != null)
             {
+                playerIsMoving = true;
                 selectedTile = tiles[i].GetComponent<Tile>();
                 selectedTile.highlight.SetActive(false);
 
@@ -103,10 +105,13 @@ public class PlayerController : MonoBehaviour
                     // Calculate the fraction of journey completed
                     float distCovered = (Time.time - startTime) * moveSpeed;
                     float fractionOfJourney = distCovered / journeyLength;
-
-                    // Move the player
+                    fractionOfJourney = Mathf.Clamp01(fractionOfJourney);
                     transform.position = Vector3.Lerp(startPosition, targetPosition, fractionOfJourney);
-
+                    if (Vector3.Distance(transform.position, targetPosition) <= 0.1f)
+                    {
+                        transform.position = targetPosition;
+                        break;
+                    }
                     yield return null; // Wait for the next frame
                 }
 
@@ -114,9 +119,11 @@ public class PlayerController : MonoBehaviour
                 transform.position = targetPosition;
             }
         }
+        corutineStart = false;
+        playerIsMoving = false;
         cubeButton.CubeWait = false;
         tiles.Clear();
-        corutineStart = false;
+
         //animator.SetBool("isMoving", false);
     }
 }

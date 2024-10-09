@@ -10,8 +10,12 @@ public class TileSelection : MonoBehaviour
     Touch touch;
     private Tile tile;
     public List<GameObject> selectedTiles = new List<GameObject>();
+    public List<GameObject> redTiles = new List<GameObject>();
     public int cubeNumber=-1;
+    public bool cubeWait = false;
     private GameObject prevGameObject;
+    [SerializeField] Transform playerTransform;
+    private bool selectStartFromPlayerPos;
     void Start()
     {
       
@@ -59,7 +63,17 @@ public class TileSelection : MonoBehaviour
 
     private void DragRelease()
     {
-        onTilesSelected?.Invoke(selectedTiles);
+        prevGameObject = null;
+        foreach(var t in redTiles)
+        {
+            tile = t.GetComponent<Tile>();
+            tile.redHighlight.SetActive(false);
+        }
+        if (selectedTiles.Count > 0)
+        {
+            onTilesSelected?.Invoke(selectedTiles);
+        }
+
     }
 
     private void Dragging()
@@ -75,6 +89,8 @@ public class TileSelection : MonoBehaviour
             GameObject hitObject = hit.collider.gameObject;
             if (prevGameObject == null)
             {
+                tile = hitObject.GetComponent<Tile>();
+                selectStartFromPlayerPos = playerTransform.position == tile.transform.position ? true : false;
                 prevGameObject = hitObject;
             }
 
@@ -90,11 +106,21 @@ public class TileSelection : MonoBehaviour
                 }
 
             }
-            if (!selectedTiles.Contains(hitObject) && selectedTiles.Count<=cubeNumber && cubeNumber !=0)
+            if (!selectedTiles.Contains(hitObject) && selectedTiles.Count<=cubeNumber && cubeNumber !=0 && selectStartFromPlayerPos && cubeWait)
             {
                 
                 tile.highlight.SetActive(true);
                 selectedTiles.Add(hitObject);
+            }
+            if (!selectedTiles.Contains(hitObject) && selectedTiles.Count < cubeNumber && cubeNumber != 0 && !selectStartFromPlayerPos && cubeWait)
+            {
+
+                tile.highlight.SetActive(true);
+                selectedTiles.Add(hitObject);
+            }
+            if((selectedTiles.Count>cubeNumber && selectStartFromPlayerPos)|| (selectedTiles.Count >= cubeNumber)||!cubeWait){
+                tile.redHighlight.SetActive(true);
+                redTiles.Add(hitObject);
             }
             if (prevGameObject != hitObject)
             {

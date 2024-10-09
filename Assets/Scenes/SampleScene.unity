@@ -350,6 +350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedTiles: []
   cubeNumber: 0
+  playerTransform: {fileID: 1667019868}
 --- !u!4 &653388705
 Transform:
   m_ObjectHideFlags: 0
@@ -840,6 +841,11 @@ MonoBehaviour:
 --- !u!1 &1667019865 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 882631026158589025, guid: b6aab4ddc7a72754085c61e3bbdce99b, type: 3}
+  m_PrefabInstance: {fileID: 1778093778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1667019868 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4721978036168171688, guid: b6aab4ddc7a72754085c61e3bbdce99b, type: 3}
   m_PrefabInstance: {fileID: 1778093778}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1778093778

@@ -10,6 +10,8 @@ public class Tile : MonoBehaviour
     [SerializeField] private Color _baseColor, _offsetColor;
     [SerializeField] private SpriteRenderer render;
     [SerializeField] public GameObject highlight;
+    [SerializeField] public GameObject redHighlight;
+    
     //[SerializeField] private float hexHieght = 2f;
     //[SerializeField] private float hexWidth = 1.7f;
     //private void OnMouseEnter()

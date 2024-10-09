@@ -18,7 +18,9 @@ public class CubeButton : MonoBehaviour
     public bool CubeWait
     {
         get { return cubeWait; }
-        set { cubeWait = value; }
+        set { cubeWait = value;
+            tileSelection.cubeWait = value;
+        }
     }
     void Start()
     {
@@ -39,6 +41,7 @@ public class CubeButton : MonoBehaviour
             cubeWait = true;
             playerController.cubeNumber = num;
             tileSelection.cubeNumber = num;
+            tileSelection.cubeWait = true;
         }
 
 
