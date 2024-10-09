@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private Tile selectedTile;
     private bool moveDone = true;
     public int cubeNumber =-1;
+    private bool corutineStart = true;
     public bool MoveDone
     {
         get { return moveDone; }
@@ -55,10 +57,20 @@ public class PlayerController : MonoBehaviour
             float playerAndFirstTileDistance = Vector3.Distance(tiles[0].transform.position,transform.position);
             if (playerAndFirstTileDistance <3) ///// This Should Be Corrected................
             {
+                corutineStart = true;
                 StartCoroutine(MoveToTiles(tiles));
-
             }
         }
+        if (!corutineStart)
+        {
+            foreach (var t in tiles)
+            {
+                selectedTile = t.GetComponent<Tile>();
+                selectedTile.highlight.SetActive(false);
+            }
+            tiles.Clear();
+        }
+
 
     }
     private IEnumerator MoveToTiles(List<GameObject> tiles)
@@ -74,31 +86,37 @@ public class PlayerController : MonoBehaviour
             // animator.SetBool("isMoving", true);
 
             // Move the player to the tile's position
-            selectedTile = tiles[i].GetComponent<Tile>();
-            selectedTile.highlight.SetActive(false);
-            Vector3 startPosition = transform.position;
-            Vector3 targetPosition = tiles[i].transform.position;
-
-            float journeyLength = Vector3.Distance(startPosition, targetPosition);
-            float startTime = Time.time;
-
-            while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+            if (tiles.ElementAtOrDefault(i) != null)
             {
-                // Calculate the fraction of journey completed
-                float distCovered = (Time.time - startTime) * moveSpeed;
-                float fractionOfJourney = distCovered / journeyLength;
+                selectedTile = tiles[i].GetComponent<Tile>();
+                selectedTile.highlight.SetActive(false);
 
-                // Move the player
-                transform.position = Vector3.Lerp(startPosition, targetPosition, fractionOfJourney);
 
-                yield return null; // Wait for the next frame
+                Vector3 startPosition = transform.position;
+                Vector3 targetPosition = tiles[i].transform.position;
+
+                float journeyLength = Vector3.Distance(startPosition, targetPosition);
+                float startTime = Time.time;
+
+                while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+                {
+                    // Calculate the fraction of journey completed
+                    float distCovered = (Time.time - startTime) * moveSpeed;
+                    float fractionOfJourney = distCovered / journeyLength;
+
+                    // Move the player
+                    transform.position = Vector3.Lerp(startPosition, targetPosition, fractionOfJourney);
+
+                    yield return null; // Wait for the next frame
+                }
+
+                // Ensure the player reaches the exact target position
+                transform.position = targetPosition;
             }
-
-            // Ensure the player reaches the exact target position
-            transform.position = targetPosition;
         }
         cubeButton.CubeWait = false;
         tiles.Clear();
+        corutineStart = false;
         //animator.SetBool("isMoving", false);
     }
 }

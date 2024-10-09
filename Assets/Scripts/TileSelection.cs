@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TileSelection : MonoBehaviour
@@ -17,7 +18,7 @@ public class TileSelection : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void Update() 
     {
         if (Input.touchCount > 0)
         {
@@ -81,9 +82,13 @@ public class TileSelection : MonoBehaviour
             if (selectedTiles.Contains(hitObject) && prevGameObject != hitObject)
             {
                 int index = selectedTiles.FindIndex(a => a == hitObject);
-                tile = selectedTiles[index + 1].GetComponent<Tile>();
-                tile.highlight.SetActive(false);
-                selectedTiles.RemoveAt(index + 1);
+                if (selectedTiles.ElementAtOrDefault(index + 1) != null)
+                {
+                    tile = selectedTiles[index + 1].GetComponent<Tile>();
+                    tile.highlight.SetActive(false);
+                    selectedTiles.RemoveAt(index + 1);
+                }
+
             }
             if (!selectedTiles.Contains(hitObject) && selectedTiles.Count<=cubeNumber && cubeNumber !=0)
             {
@@ -100,6 +105,6 @@ public class TileSelection : MonoBehaviour
     }
         private void DragStart()
     {
-        Debug.Log("Drag Start");
+        
     }
 }
