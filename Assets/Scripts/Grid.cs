@@ -107,8 +107,5 @@ public class Grid : MonoBehaviour
         }
         return null;
     }
-    void Update()
-    {
-        
-    }
+
 }

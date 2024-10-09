@@ -319,6 +319,52 @@ Transform:
   - {fileID: 278818486}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &653388703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 653388705}
+  - component: {fileID: 653388704}
+  m_Layer: 0
+  m_Name: TileSelection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &653388704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653388703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8583da102041d4f4ea0fa58057e6a13b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedTiles: []
+  cubeNumber: 0
+--- !u!4 &653388705
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653388703}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.4650054, y: 2.3060038, z: 0.13386819}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &734429776
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,8 +400,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 853.5, y: 434}
-  m_SizeDelta: {x: 166.94, y: 161.89}
+  m_AnchoredPosition: {x: 816.12, y: 424.39}
+  m_SizeDelta: {x: 220.35, y: 181.12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &734429778
 MonoBehaviour:
@@ -791,6 +837,11 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &1667019865 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 882631026158589025, guid: b6aab4ddc7a72754085c61e3bbdce99b, type: 3}
+  m_PrefabInstance: {fileID: 1778093778}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1778093778
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -844,9 +895,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6348620345203783269, guid: b6aab4ddc7a72754085c61e3bbdce99b, type: 3}
+      propertyPath: cube
+      value: 
+      objectReference: {fileID: 1901876447}
+    - target: {fileID: 6348620345203783269, guid: b6aab4ddc7a72754085c61e3bbdce99b, type: 3}
       propertyPath: gridObj
       value: 
       objectReference: {fileID: 1197608968}
+    - target: {fileID: 6348620345203783269, guid: b6aab4ddc7a72754085c61e3bbdce99b, type: 3}
+      propertyPath: tileSelectionObj
+      value: 
+      objectReference: {fileID: 653388703}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -883,6 +942,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ctxt: {fileID: 1491926950}
   ctextButton: {fileID: 824564559}
+  plyrCtrl: {fileID: 1667019865}
+  tileSelectionObj: {fileID: 653388703}
 --- !u!4 &1901876449
 Transform:
   m_ObjectHideFlags: 0
@@ -968,3 +1029,4 @@ SceneRoots:
   - {fileID: 1778093778}
   - {fileID: 966366989}
   - {fileID: 1901876449}
+  - {fileID: 653388705}
