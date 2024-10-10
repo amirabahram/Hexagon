@@ -2,10 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.GameCenter;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,7 +11,6 @@ public class PlayerController : MonoBehaviour
     //public Animator animator;
     private Tile selectedTile;
     private bool moveDone = true;
-    public int cubeNumber =-1;
     private bool corutineStart = true;
     private bool playerIsMoving = false;
     public bool MoveDone
@@ -60,8 +57,8 @@ public class PlayerController : MonoBehaviour
     }
     private IEnumerator MoveToTiles(List<GameObject> tiles)
     {
-        int posibbleMoves = Math.Min(tiles.Count, cubeNumber);
-        if (cubeNumber == 0)
+        int posibbleMoves = Math.Min(tiles.Count, CubeButton.Instance.cubeNumber);
+        if (CubeButton.Instance.cubeNumber == 0)
         {
             posibbleMoves = -1;
         }

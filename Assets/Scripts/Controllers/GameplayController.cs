@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -63,5 +60,10 @@ public class GameplayController : MonoBehaviour
     {
         Time.timeScale = 1;
         Application.LoadLevel("MainMenu");
+    }
+    public void StartGame()
+    {
+        Time.timeScale = 1;
+        readyButton.SetActive(false);
     }
 }

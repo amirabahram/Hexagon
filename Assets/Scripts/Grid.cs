@@ -141,6 +141,8 @@ public class Grid : MonoBehaviour
 
             }
         }
+        tilesKeyList.RemoveAt(0);
+        tilesKeyList.RemoveAt(tilesKeyList.Count - 1);
         cam.transform.position = new Vector3(gridWidth / 2 * hexWidth, -1 * gridLength / 2 * hexHieght,-10);
         
     }

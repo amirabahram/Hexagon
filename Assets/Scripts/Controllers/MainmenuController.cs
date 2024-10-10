@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class MainmenuController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void PlayGame()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Application.LoadLevel("Gameplay");
     }
 }
