@@ -7,6 +7,22 @@ using System;
 
 public class CubeButton : MonoBehaviour
 {
+    private static CubeButton _instance;
+    public static CubeButton Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindAnyObjectByType<CubeButton>();
+                if (_instance == null)
+                {
+                    _instance = new GameObject().AddComponent<CubeButton>();
+                }
+            }
+            return _instance;
+        }
+    }
     [SerializeField] private TMP_Text ctxt;
     [SerializeField] private Button ctextButton;
     [SerializeField] private GameObject plyrCtrl;

@@ -49,3 +49,10 @@ MonoBehaviour:
   gap: 0.05
   cam: {fileID: 0}
   hexPrefabb: {fileID: 5252605376809760749, guid: 7bd6845e49d91f24aad6a0f6595566cc, type: 3}
+  collection:
+  - {fileID: 113508911078739349, guid: bde4e313d8847c84690cc51bde712440, type: 3}
+  - {fileID: 113508911078739349, guid: bde4e313d8847c84690cc51bde712440, type: 3}
+  - {fileID: 113508911078739349, guid: bde4e313d8847c84690cc51bde712440, type: 3}
+  - {fileID: 113508911078739349, guid: bde4e313d8847c84690cc51bde712440, type: 3}
+  - {fileID: 113508911078739349, guid: bde4e313d8847c84690cc51bde712440, type: 3}
+  - {fileID: 113508911078739349, guid: bde4e313d8847c84690cc51bde712440, type: 3}

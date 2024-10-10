@@ -5,18 +5,12 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.SocialPlatforms.GameCenter;
 
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
     //public Animator animator;
-    [SerializeField] GameObject gridObj;
-    [SerializeField] GameObject cube;
-    [SerializeField] GameObject tileSelectionObj;
-    private Grid grid;
-    private CubeButton cubeButton;
-    private TileSelection tileSelection;
     private Tile selectedTile;
     private bool moveDone = true;
     public int cubeNumber =-1;
@@ -33,27 +27,17 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {
-        cubeButton = cube.GetComponent<CubeButton>();
-        grid = gridObj.GetComponent<Grid>();
-        tileSelection = tileSelectionObj.GetComponent<TileSelection>();
-        tileSelection.onTilesSelected += movePlayer;
-        foreach(var i in grid._tiles)
-        {
-            i.Value.onTileClicked += movePlayer;
-        }
-    }
 
-    public void movePlayer(Vector3 v)
-    {
-        if (cubeButton.CubeWait)
-        {
-            transform.position = v;
-            cubeButton.CubeWait = false;
-        }
+        TileSelection.Instance.onTilesSelected += movePlayer;
+
     }
-    public void movePlayer(List<GameObject> tiles)
+    public void movePlayer(GameObject currentPlayer,List<GameObject> tiles)
     {
-        if (tiles.Count > 0 && cubeButton.CubeWait)
+        if (currentPlayer != this.gameObject)
+        {
+            return;
+        }
+        if (tiles.Count > 0 && CubeButton.Instance.CubeWait)
         {
             float playerAndFirstTileDistance = Vector3.Distance(tiles[0].transform.position,transform.position);
             if (playerAndFirstTileDistance <2 && !playerIsMoving) ///// This Should Be Corrected................
@@ -121,7 +105,8 @@ public class PlayerController : MonoBehaviour
         }
         corutineStart = false;
         playerIsMoving = false;
-        cubeButton.CubeWait = false;
+        CubeButton.Instance.CubeWait = false;
+        GameplayController.Instance.SwitchPlayer();
         tiles.Clear();
 
         //animator.SetBool("isMoving", false);

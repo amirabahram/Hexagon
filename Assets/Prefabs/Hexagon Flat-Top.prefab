@@ -184,8 +184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c48d877d40b21409c1997701978e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseColor: {r: 0.8490566, g: 0.117479436, b: 0.64421517, a: 1}
-  _offsetColor: {r: 0.3962264, g: 0.07351368, b: 0.07351368, a: 1}
+  _baseColor: {r: 0.117647074, g: 0.80284023, b: 0.8509804, a: 1}
+  _offsetColor: {r: 0.042719755, g: 0.13293897, b: 0.6792453, a: 1}
   render: {fileID: 2498092482039797906}
   highlight: {fileID: 6314902924997801756}
   redHighlight: {fileID: 870464910309233024}

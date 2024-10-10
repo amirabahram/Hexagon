@@ -1,30 +1,53 @@
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
-using TMPro.EditorUtilities;
-using Unity.VisualScripting;
 using UnityEngine;
 
 //using static System.IO.Enumeration.FileSystemEnumerable<TResult>;
 
 public class Grid : MonoBehaviour
 {
-    //public Transform hexPrefab;
-    //public GameObject hexPrefabb;
-    //Camera maincamera = GameObject.FindWithTag("Camera").GetComponent<Camera>();
-    //Canvas mainCanvas = GameObject.FindWithTag("Canvas").GetComponent<Canvas>();
-
+    private static Grid _instance;
+    public static Grid Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<Grid>();
+                if (_instance == null)
+                {
+                    _instance = new GameObject().AddComponent<Grid>();
+                }
+            }
+            return _instance;
+        }
+    }
     public int gridWidth = 10;
     public int gridLength = 10;
     float hexWidth = 1.7f;
     float hexHieght = 2.0f;
     public float gap = 0.0f;
     public Dictionary<Vector2, Tile> _tiles = new Dictionary<Vector2, Tile>();
+    private List<Vector2> tilesKeyList = new List<Vector2>();
     [SerializeField] private Transform cam;
     [SerializeField] private Tile hexPrefabb;
-
-    
+    [SerializeField] private GameObject[] collection;
+    private List<GameObject> collectables = new List<GameObject>();
     Vector3 startPos;
+    void InitializeCollectables()
+    {
+        for(int i = 0; i < collection.Length; i++)
+        {
+            collectables.Add(collection[i]);
+        }
+        for(int i = 0; i < collectables.Count; i++)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, collectables.Count - 1);
+            GameObject temp = collectables[i];
+            collectables[i] = collectables[randomIndex];
+            collectables[randomIndex] = temp;
+        }
+    }
     void SetWidthandHieght()
     {
         hexHieght = transform.localScale.y;
@@ -38,6 +61,26 @@ public class Grid : MonoBehaviour
         CreateGrid();
        
     }
+    private void Start()
+    {
+        InitializeCollectables();
+        spawnCollectables();
+    }
+
+    private void spawnCollectables()
+    {
+        foreach(var i in collectables)
+        {
+            System.Random rand = new System.Random();
+            Vector2 randomTilekey = tilesKeyList[rand.Next(tilesKeyList.Count)];
+            Vector3 randObjPos = _tiles[randomTilekey].gameObject.transform.position;
+            GameObject obj = Instantiate(i, randObjPos, Quaternion.identity) as GameObject;
+            obj.SetActive(true);
+        }
+
+
+    }
+
     void AddGap()
     {
         hexHieght += hexHieght * gap;
@@ -93,11 +136,13 @@ public class Grid : MonoBehaviour
                 isOffset = (x % 2 == 0 && y % 2 != 0);
                 hex.Init(isOffset);
                 _tiles[new Vector2(x, y)] = hex;
+                tilesKeyList.Add(new Vector2(x, y));
             
 
             }
         }
         cam.transform.position = new Vector3(gridWidth / 2 * hexWidth, -1 * gridLength / 2 * hexHieght,-10);
+        
     }
    public Tile GetTileAtPosition(Vector2 v)
     {
