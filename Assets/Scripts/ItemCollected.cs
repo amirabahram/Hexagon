@@ -10,6 +10,13 @@ public class ItemCollected : MonoBehaviour
         {
             Destroy(collision.gameObject);
 
+            if (name == "Player1")
+            {
+                FindObjectOfType<GameplayController>().UpdatePlayerScore(1);
+                return;
+            }
+
+            FindObjectOfType<GameplayController>().UpdatePlayerScore(2);
         }
     }
 }

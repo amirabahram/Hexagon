@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TileSelection : MonoBehaviour
@@ -24,6 +25,7 @@ public class TileSelection : MonoBehaviour
     }
     public GameObject currentPlayer;
     public event Action<GameObject,List<GameObject>> onTilesSelected;
+    public event Action<GameObject> onPlayerLost;
     Touch touch;
     private Tile tile;
     public List<GameObject> selectedTiles = new List<GameObject>();
@@ -39,6 +41,10 @@ public class TileSelection : MonoBehaviour
     // Update is called once per frame
     void Update() 
     {
+        if(!Grid.Instance._tiles.Values.Any(x => Vector3.Distance(x.transform.position, transform.position) < 2))
+        {
+            onPlayerLost?.Invoke(currentPlayer);
+        }
         if (Input.touchCount > 0)
         {
             touch = Input.GetTouch(0);
@@ -66,7 +72,10 @@ public class TileSelection : MonoBehaviour
         }
 
     }
-
+    private void FixedUpdate()
+    {
+        
+    }
     private void DragRelease()
     {
         prevGameObject = null;

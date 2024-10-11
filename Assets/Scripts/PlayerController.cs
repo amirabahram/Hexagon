@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
                 }
 
                 // Ensure the player reaches the exact target position
-                transform.position = targetPosition;
+                //transform.position = targetPosition;
             }
         }
         corutineStart = false;

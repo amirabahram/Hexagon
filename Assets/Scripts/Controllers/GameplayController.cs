@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,11 +10,14 @@ public class GameplayController : MonoBehaviour
     [SerializeField] private GameObject player2Obj;
     public GameObject currentPlayer;
     [SerializeField]
-    private Text coinText, lifeText, scoreText, gameoverScoreText, gameoverCoinText;
+    private Text scoreText, lifeText, turnText, gameoverScoreText, gameoverCoinText;
+    [SerializeField] private Image turnImage;
     [SerializeField]
     private GameObject pausePanel, gameOverPanel;
     [SerializeField]
     private GameObject readyButton;
+    public int player1Score;
+    public int player2Score;
     private static GameplayController _instance;
     public static GameplayController Instance
     {
@@ -33,14 +37,25 @@ public class GameplayController : MonoBehaviour
 
     private void Start()
     {
+        turnText.text = "Turn: Player1";
         currentPlayer = player1Obj;
         player1Obj.transform.position =  Grid.Instance._tiles.FirstOrDefault().Value.transform.position;
         player2Obj.transform.position = Grid.Instance._tiles.LastOrDefault().Value.transform.position;
+        TileSelection.Instance.onPlayerLost += PlayerLost;
+
         Time.timeScale = 0;
+    }
+    void PlayerLost(GameObject loser)
+    {
+        Time.timeScale = 0;
+        gameOverPanel.SetActive(true);
+        gameoverScoreText.text = (player1Score > player2Score) ? "Player1 Wins!" + "Score: " + player1Score : "Player2 Wins!" + "Score: " + player2Score;
     }
     public void SwitchPlayer()
     {
         currentPlayer = (currentPlayer == player1Obj) ? player2Obj : player1Obj;
+        turnText.text = (currentPlayer == player1Obj) ? "Turn: Player1" : "Turn: Player2";
+
     }
     public void SetScore(int score)
     {
@@ -58,12 +73,24 @@ public class GameplayController : MonoBehaviour
     }
     public void QuitGame()
     {
-        Time.timeScale = 1;
+        Time.timeScale = 0;
         Application.LoadLevel("MainMenu");
     }
     public void StartGame()
     {
         Time.timeScale = 1;
         readyButton.SetActive(false);
+    }
+
+    public void UpdatePlayerScore(int playerIndex)
+    {
+        if (playerIndex == 1)
+        {
+            player1Score++;
+            scoreText.text = "Player1: " + player1Score+ "| Player2: " + player2Score;
+            return;
+        }
+        player2Score++;
+        scoreText.text = "Player1: " + player1Score + "| Player2: " + player2Score;
     }
 }

@@ -8,6 +8,7 @@ using System;
 public class CubeButton : MonoBehaviour
 {
     private static CubeButton _instance;
+    [SerializeField] private GameObject dice;
     public static CubeButton Instance
     {
         get
@@ -53,5 +54,11 @@ public class CubeButton : MonoBehaviour
     public void FadeButton()
     {
         ctextButton.gameObject.SetActive(false);
+    }
+    public void DiceClicked()
+    {
+        Animator diceAnim = dice.GetComponent<Animator>();
+        diceAnim.SetBool("Idle", false);
+
     }
 }
