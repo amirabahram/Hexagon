@@ -8,7 +8,6 @@ using System;
 public class CubeButton : MonoBehaviour
 {
     private static CubeButton _instance;
-    [SerializeField] private GameObject dice;
     public static CubeButton Instance
     {
         get
@@ -26,6 +25,9 @@ public class CubeButton : MonoBehaviour
     }
     [SerializeField] private TMP_Text ctxt;
     [SerializeField] private Button ctextButton;
+    [SerializeField] private Button diceButton;
+    [SerializeField] private GameObject diceAnimation;
+    [SerializeField] private Sprite[] diceNumbers;
     private bool _cubeWait = false;
     public int cubeNumber = -1;
     public bool CubeWait
@@ -35,7 +37,12 @@ public class CubeButton : MonoBehaviour
             _cubeWait = value;
         }
     }
+    private Animator anim;
+    private void Start()
+    {
+        anim = diceAnimation.GetComponent<Animator>();
 
+    }
     public void GenerateRandomNumber()
     {
         //Debug.Log(cubeDone);
@@ -47,6 +54,7 @@ public class CubeButton : MonoBehaviour
             ctxt.text = num.ToString();
             _cubeWait = true;
             cubeNumber = num;
+            DiceClicked();
         }
 
 
@@ -57,8 +65,34 @@ public class CubeButton : MonoBehaviour
     }
     public void DiceClicked()
     {
-        Animator diceAnim = dice.GetComponent<Animator>();
-        diceAnim.SetBool("Idle", false);
+        anim.SetBool("Idle", false);
+        StartCoroutine(SetIcon());
 
+    }
+    IEnumerator SetIcon()
+    {
+        yield return new WaitForSeconds(2);
+        anim.SetBool("Idle", true);
+        switch (cubeNumber)
+        {
+            case 1:
+                anim.SetInteger(1, 1);
+                break;
+            case 2:
+                anim.SetInteger(2, 2);
+                break;
+            case 3:
+                anim.SetInteger(3, 3);
+                break;
+            case 4:
+                anim.SetInteger(4, 4);
+                break;
+            case 5:
+                anim.SetInteger(5, 5);
+                break;
+            case 6:
+                anim.SetInteger(6, 6);
+                break;
+        }
     }
 }
