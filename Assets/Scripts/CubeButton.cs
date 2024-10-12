@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System;
+
 
 public class CubeButton : MonoBehaviour
 {
@@ -23,8 +21,6 @@ public class CubeButton : MonoBehaviour
             return _instance;
         }
     }
-    [SerializeField] private TMP_Text ctxt;
-    [SerializeField] private Button ctextButton;
     [SerializeField] private Button diceButton;
     [SerializeField] private GameObject diceAnimation;
     [SerializeField] private Sprite[] diceNumbers;
@@ -49,9 +45,7 @@ public class CubeButton : MonoBehaviour
         //Debug.Log(playerController.moveDone);
         if (!_cubeWait)
         {
-            ctextButton.gameObject.SetActive(true);
             int num = UnityEngine.Random.Range(1, 7);
-            ctxt.text = num.ToString();
             _cubeWait = true;
             cubeNumber = num;
             DiceClicked();
@@ -59,40 +53,14 @@ public class CubeButton : MonoBehaviour
 
 
     }
-    public void FadeButton()
-    {
-        ctextButton.gameObject.SetActive(false);
-    }
     public void DiceClicked()
     {
-        anim.SetBool("Idle", false);
-        StartCoroutine(SetIcon());
+        anim.Play("rolling");
+        Invoke("SetDiceNumber", anim.GetCurrentAnimatorStateInfo(0).length);
 
     }
-    IEnumerator SetIcon()
+    void SetDiceNumber()
     {
-        yield return new WaitForSeconds(2);
-        anim.SetBool("Idle", true);
-        switch (cubeNumber)
-        {
-            case 1:
-                anim.SetInteger(1, 1);
-                break;
-            case 2:
-                anim.SetInteger(2, 2);
-                break;
-            case 3:
-                anim.SetInteger(3, 3);
-                break;
-            case 4:
-                anim.SetInteger(4, 4);
-                break;
-            case 5:
-                anim.SetInteger(5, 5);
-                break;
-            case 6:
-                anim.SetInteger(6, 6);
-                break;
-        }
+        anim.SetInteger("DiceNumber", cubeNumber);
     }
 }

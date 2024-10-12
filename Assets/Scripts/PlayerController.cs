@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
         {
             posibbleMoves = -1;
         }
-
+        gameObject.GetComponent<Animator>().Play("running");
         for(int i=0;i<= posibbleMoves; i++)
         {
             // animator.SetBool("isMoving", true);
@@ -100,6 +100,7 @@ public class PlayerController : MonoBehaviour
                 //transform.position = targetPosition;
             }
         }
+        gameObject.GetComponent<Animator>().Play("Idle");
         corutineStart = false;
         playerIsMoving = false;
         CubeButton.Instance.CubeWait = false;

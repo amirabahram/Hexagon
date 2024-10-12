@@ -8,14 +8,14 @@ public class GameplayController : MonoBehaviour
 
     [SerializeField] private GameObject player1Obj;
     [SerializeField] private GameObject player2Obj;
+    [SerializeField] private GameObject readyPanel;
     public GameObject currentPlayer;
     [SerializeField]
     private Text scoreText, lifeText, turnText, gameoverScoreText, gameoverCoinText;
     [SerializeField] private Image turnImage;
     [SerializeField]
     private GameObject pausePanel, gameOverPanel;
-    [SerializeField]
-    private GameObject readyButton;
+    [SerializeField] private GameObject readyButton;
     public int player1Score;
     public int player2Score;
     private static GameplayController _instance;
@@ -74,23 +74,34 @@ public class GameplayController : MonoBehaviour
     public void QuitGame()
     {
         Time.timeScale = 0;
-        Application.LoadLevel("MainMenu");
+        Application.LoadLevel("Main");
     }
     public void StartGame()
     {
         Time.timeScale = 1;
         readyButton.SetActive(false);
-    }
+        readyPanel.SetActive(false);
 
+    }
+    public void StartFromScratch()
+    {
+        Time.timeScale = 0;
+        readyButton.SetActive(true);
+        readyPanel.SetActive(true);
+        pausePanel.SetActive(false);
+        player1Score = 0;
+        player2Score = 0;
+        Application.LoadLevel("Gameplay");
+    }
     public void UpdatePlayerScore(int playerIndex)
     {
         if (playerIndex == 1)
         {
             player1Score++;
-            scoreText.text = "Player1: " + player1Score+ "| Player2: " + player2Score;
+            scoreText.text = "Player1: " + player1Score+ "   Player2: " + player2Score;
             return;
         }
         player2Score++;
-        scoreText.text = "Player1: " + player1Score + "| Player2: " + player2Score;
+        scoreText.text = "Player1: " + player1Score + "   Player2: " + player2Score;
     }
 }

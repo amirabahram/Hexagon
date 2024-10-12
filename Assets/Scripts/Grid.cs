@@ -24,8 +24,8 @@ public class Grid : MonoBehaviour
     }
     public int gridWidth = 10;
     public int gridLength = 10;
-    float hexWidth = 1.7f;
-    float hexHieght = 2.0f;
+    float hexWidth = 10f;
+    float hexHieght = -5f;
     public float gap = 0.0f;
     public Dictionary<Vector2, Tile> _tiles = new Dictionary<Vector2, Tile>();
     private List<Vector2> tilesKeyList = new List<Vector2>();
@@ -143,7 +143,7 @@ public class Grid : MonoBehaviour
         }
         tilesKeyList.RemoveAt(0);
         tilesKeyList.RemoveAt(tilesKeyList.Count - 1);
-        cam.transform.position = new Vector3(gridWidth / 2 * hexWidth, -1 * gridLength / 2 * hexHieght,-10);
+        cam.transform.position = new Vector3(0.5f+gridWidth / 2 * hexWidth,1.2f-1 * gridLength / 2 * hexHieght,-10);
         
     }
    public Tile GetTileAtPosition(Vector2 v)
